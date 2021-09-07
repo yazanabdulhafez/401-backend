@@ -47,18 +47,20 @@ const updateController = ((req, res) => {
 
 ////////////////////delete ///////////////////////////
 const deleteController = ((req, res) => {
-  const id = req.params["id"];
-  console.log(id);
+  const elemId = req.params["id"];
+  console.log(elemId);
   const { email } = req.query;
   userModel.findOne({ email: email }, (error, userData) => {
     if (error) {
       res.send(error.message)
     } else {
       console.log(userData);
-      userData.currencies.filter((element) => element._id !== id);
+
+      userData.currencies = userData.currencies.filter(element => element._id != elemId);
+      userData.save();
       res.send(userData);
     }
-  })
+  });
 
 });
 
