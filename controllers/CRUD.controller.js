@@ -37,7 +37,9 @@ const updateController = ((req, res) => {
     if (error) {
       res.send(error.message)
     } else {
-      userData.currencies.splice(id, 1, { title: title, description: description, toUSD: toUSD, image_url: image_url });
+      const index = userData.currencies.findIndex(element => element._id == id);
+      console.log(index);
+      userData.currencies.splice(index, 1, { title: title, description: description, toUSD: toUSD, image_url: image_url });
       userData.save();
       res.send(userData);
     }
